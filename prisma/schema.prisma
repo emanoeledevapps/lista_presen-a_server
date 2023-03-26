@@ -14,12 +14,14 @@ model User {
   id                  String   @id @default(cuid())
   name                String
   wallet              String   @unique
+  password            String?
   userType            Int      @default(0)
   createdAt           DateTime @default(now())
   geoLocation         String?
   propertyGeolocation String?
 
-  Delations Delation[]
+  Delations   Delation[]
+  Inspections Inspection[]
 }
 
 model Delation {
@@ -31,4 +33,32 @@ model Delation {
   createdAt    DateTime @default(now())
 
   user User @relation(fields: [reportedUser], references: [wallet])
+}
+
+model Inspection {
+  id               String   @id @default(cuid())
+  inspectionId     String   @unique
+  createdBy        String
+  createdAt        String
+  acceptedAt       DateTime @default(now())
+  status           Int      @default(1)
+  inspectedAt      String?
+  categories       String
+  resultCategories String?
+  userWallet       String
+  currentLocation  String?
+
+  user User @relation(fields: [userWallet], references: [wallet])
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  keywords    String   @default("")
+  bannerUrl   String
+  bannerAlt   String
+  bodyPost    String
+  language    String
+  createdAt   DateTime @default(now())
 }
