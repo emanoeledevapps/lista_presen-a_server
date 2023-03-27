@@ -19,6 +19,7 @@ model User {
   createdAt           DateTime @default(now())
   geoLocation         String?
   propertyGeolocation String?
+  imgProfileUrl       String?
 
   Delations   Delation[]
   Inspections Inspection[]
