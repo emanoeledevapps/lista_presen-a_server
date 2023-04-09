@@ -7,7 +7,7 @@ export async function userRoutes(fastify: FastifyInstance){
     fastify.get('/me', {onRequest: [authenticated]},async (request, reply) => {
         const user = await prisma.user.findUnique({
             where:{
-                wallet: request.user.wallet
+                wallet: request.user.wallet.toUpperCase()
             }
         });
         
@@ -27,7 +27,7 @@ export async function userRoutes(fastify: FastifyInstance){
 
         const user = await prisma.user.findUnique({
             where:{
-                wallet
+                wallet: wallet.toUpperCase()
             }
         })
 

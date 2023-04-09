@@ -12,10 +12,11 @@ export async function blogRoutes(fastify: FastifyInstance){
             bannerAlt: z.string(),
             bodyPost: z.string(),
             language: z.string(),
-            keywords: z.string()
+            keywords: z.string(),
+            url: z.string()
         });
     
-        const {title, description, bannerUrl, bannerAlt, bodyPost, language, keywords} = createPostProps.parse(request.body);
+        const {title, description, bannerUrl, bannerAlt, bodyPost, language, keywords, url} = createPostProps.parse(request.body);
     
         await prisma.post.create({
             data:{
@@ -25,7 +26,8 @@ export async function blogRoutes(fastify: FastifyInstance){
                 bannerAlt,
                 bodyPost,
                 language,
-                keywords
+                keywords,
+                url
             }
         })
     
@@ -51,16 +53,16 @@ export async function blogRoutes(fastify: FastifyInstance){
         return {posts}
     })
 
-    fastify.get('/post/:title', async (request, reply) => {
+    fastify.get('/post/:url', async (request, reply) => {
         const reqParamsProps = z.object({
-            title: z.string()
+            url: z.string()
         })
 
-        const {title} = reqParamsProps.parse(request.params);
+        const {url} = reqParamsProps.parse(request.params);
 
         const post = await prisma.post.findFirst({
             where:{
-                title
+                url
             }
         });
 

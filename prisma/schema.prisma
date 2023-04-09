@@ -20,6 +20,7 @@ model User {
   geoLocation         String?
   propertyGeolocation String?
   imgProfileUrl       String?
+  address             String?
 
   Delations   Delation[]
   Inspections Inspection[]
@@ -44,16 +45,19 @@ model Inspection {
   acceptedAt       DateTime @default(now())
   status           Int      @default(1)
   inspectedAt      String?
-  categories       String
+  propertyData     String
   resultCategories String?
   userWallet       String
   currentLocation  String?
+  resultIdices     String?
+  proofPhoto       String?
 
   user User @relation(fields: [userWallet], references: [wallet])
 }
 
 model Post {
   id          String   @id @default(cuid())
+  url         String?
   title       String
   description String
   keywords    String   @default("")
@@ -62,4 +66,28 @@ model Post {
   bodyPost    String
   language    String
   createdAt   DateTime @default(now())
+}
+
+model Category {
+  id          String        @id @default(cuid())
+  title       String        @unique
+  description String
+  createdAt   DateTime      @default(now())
+  SubCategory SubCategory[]
+}
+
+model SubCategory {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  carbonValue Decimal
+  bioValue    Decimal
+  aguaValue   Decimal
+  soloValue   Decimal
+  createdAt   DateTime @default(now())
+  description String?
+  placeholder String?
+  type        String   @default("numeric")
+
+  cat Category @relation(fields: [category], references: [id])
 }
