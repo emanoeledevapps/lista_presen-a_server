@@ -80,6 +80,6 @@ export async function authRoutes(fastify: FastifyInstance){
             expiresIn: '60 days'
         })
 
-        return token
+        return token;
     })
 }
