@@ -66,10 +66,11 @@ export async function inspectionRoutes(fastify: FastifyInstance){
         const createInspectionBody = z.object({
             resultIndices: z.string(),
             resultCategories: z.string(),
+            biodversityIndice: z.string(),
             proofPhoto: z.string()
         });
     
-        const {proofPhoto, resultCategories, resultIndices} = createInspectionBody.parse(request.body);
+        const {proofPhoto, resultCategories, resultIndices, biodversityIndice} = createInspectionBody.parse(request.body);
         const {inspectionId} = createInspectionParams.parse(request.params);
     
         await prisma.inspection.update({
@@ -80,7 +81,8 @@ export async function inspectionRoutes(fastify: FastifyInstance){
                 proofPhoto,
                 resultCategories,
                 resultIdices: resultIndices,
-                status: 2
+                status: 2,
+                biodversityIndice
             }
         })
     

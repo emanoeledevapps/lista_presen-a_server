@@ -38,19 +38,20 @@ model Delation {
 }
 
 model Inspection {
-  id               String   @id @default(cuid())
-  inspectionId     String   @unique
-  createdBy        String
-  createdAt        String
-  acceptedAt       DateTime @default(now())
-  status           Int      @default(1)
-  inspectedAt      String?
-  propertyData     String
-  resultCategories String?
-  userWallet       String
-  currentLocation  String?
-  resultIdices     String?
-  proofPhoto       String?
+  id                String   @id @default(cuid())
+  inspectionId      String   @unique
+  createdBy         String
+  createdAt         String
+  acceptedAt        DateTime @default(now())
+  status            Int      @default(1)
+  inspectedAt       String?
+  propertyData      String
+  resultCategories  String?
+  userWallet        String
+  currentLocation   String?
+  resultIdices      String?
+  proofPhoto        String?
+  biodversityIndice String?
 
   user User @relation(fields: [userWallet], references: [wallet])
 }
