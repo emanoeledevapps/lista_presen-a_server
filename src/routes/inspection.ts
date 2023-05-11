@@ -54,7 +54,11 @@ export async function inspectionRoutes(fastify: FastifyInstance){
     });
 
     fastify.get('/subCategories', async (request, reply) => {
-        const subCategories = await prisma.subCategory.findMany({})
+        const subCategories = await prisma.subCategory.findMany({
+            orderBy:{
+                order: 'asc'
+            }
+        })
         return {subCategories}
     });
 

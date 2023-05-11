@@ -89,6 +89,8 @@ model SubCategory {
   description String?
   placeholder String?
   type        String   @default("numeric")
+  unity       String?
+  order       Int?
 
   cat Category @relation(fields: [category], references: [id])
 }
