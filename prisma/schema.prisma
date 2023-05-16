@@ -94,3 +94,12 @@ model SubCategory {
 
   cat Category @relation(fields: [category], references: [id])
 }
+
+model Impact {
+  id     String @id @default(cuid())
+  title  String
+  carbon Int
+  agua   Int
+  bio    Int
+  solo   Int
+}

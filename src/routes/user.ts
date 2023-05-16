@@ -12,12 +12,12 @@ export async function userRoutes(fastify: FastifyInstance){
         });
         
         return {user}
-    })
+    });
 
     fastify.get('/users', async (request, reply) => {
         const users = await prisma.user.findMany();
         return {users}
-    })
+    });
 
     fastify.get('/user/:wallet', async (request, reply) => {
         const requestProps = z.object({
@@ -32,5 +32,27 @@ export async function userRoutes(fastify: FastifyInstance){
         })
 
         return {user}
+    });
+
+    fastify.get('/users_count', async (request, reply) => {
+        const producersCount = await prisma.user.count({
+            where:{
+                userType: 1
+            }
+        })
+
+        const activistsCount = await prisma.user.count({
+            where:{
+                userType: 2
+            }
+        })
+
+        const researchersCount = await prisma.user.count({
+            where:{
+                userType: 2
+            }
+        })
+
+        return{producersCount, activistsCount, researchersCount}
     })
 }
