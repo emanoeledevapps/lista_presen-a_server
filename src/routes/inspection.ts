@@ -62,6 +62,42 @@ export async function inspectionRoutes(fastify: FastifyInstance){
         return {subCategories}
     });
 
+    fastify.put('/update-category', async (request, reply) => {
+        const updateProps = z.object({
+            id: z.string(),
+            carbon: z.string(),
+            agua: z.string(),
+            bio: z.string(),
+            solo: z.string()
+        })
+
+        const {id, carbon, agua, bio, solo} = updateProps.parse(request.body);
+
+        const category = await prisma.subCategory.findUnique({
+            where:{
+                id
+            }
+        })
+
+        if(!category){
+            return reply.status(400).send()
+        }
+        
+        await prisma.subCategory.update({
+            where: {
+                id
+            },
+            data:{
+                carbonValue: carbon,
+                aguaValue: agua,
+                soloValue: solo,
+                bioValue: bio
+            }
+        })
+
+        return reply.status(200).send()
+    })
+
     fastify.put('/inspections/:inspectionId/finishInspection', {onRequest: [authenticated]},async (request, reply) => {
         const createInspectionParams = z.object({
             inspectionId: z.string()
