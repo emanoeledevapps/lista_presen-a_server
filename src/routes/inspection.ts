@@ -57,6 +57,21 @@ export async function inspectionRoutes(fastify: FastifyInstance){
         const subCategories = await prisma.subCategory.findMany({
             orderBy:{
                 order: 'asc'
+            },
+            select:{
+                aguaValue: true,
+                bioValue: true,
+                carbonValue: true,
+                soloValue: true,
+                category: true,
+                description: true,
+                id:true,
+                placeholder: true,
+                title: true,
+                type: true,
+                unity: true,
+                insumoCategory: true,
+                proofPhoto: true
             }
         })
         return {subCategories}

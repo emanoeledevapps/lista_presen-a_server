@@ -78,19 +78,21 @@ model Category {
 }
 
 model SubCategory {
-  id          String   @id @default(cuid())
-  title       String
-  category    String
-  carbonValue Decimal
-  bioValue    Decimal
-  aguaValue   Decimal
-  soloValue   Decimal
-  createdAt   DateTime @default(now())
-  description String?
-  placeholder String?
-  type        String   @default("numeric")
-  unity       String?
-  order       Int?
+  id             String   @id @default(cuid())
+  title          String
+  category       String
+  carbonValue    Decimal
+  bioValue       Decimal
+  aguaValue      Decimal
+  soloValue      Decimal
+  createdAt      DateTime @default(now())
+  description    String?
+  placeholder    String?
+  type           String   @default("numeric")
+  unity          String?
+  order          Int?
+  insumoCategory String?
+  proofPhoto     Boolean  @default(false)
 
   cat Category @relation(fields: [category], references: [id])
 }
