@@ -144,6 +144,30 @@ export async function inspectionRoutes(fastify: FastifyInstance){
         return reply.status(201).send()
     });
 
+    fastify.put('/inspections/:inspectionId/update-result-indices', async (request, reply) => {
+        const createInspectionParams = z.object({
+            inspectionId: z.string()
+        });
+
+        const createInspectionBody = z.object({
+            resultIndices: z.string(),
+        });
+    
+        const {resultIndices} = createInspectionBody.parse(request.body);
+        const {inspectionId} = createInspectionParams.parse(request.params);
+    
+        await prisma.inspection.update({
+            where:{
+                inspectionId
+            },
+            data:{
+                resultIdices: resultIndices
+            }
+        })
+    
+        return reply.status(201).send()
+    });
+
     fastify.get('/inspection/:inspectionId', async (request, reply) => {
         const createInspectionParams = z.object({
             inspectionId: z.string()
