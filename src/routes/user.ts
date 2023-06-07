@@ -55,4 +55,24 @@ export async function userRoutes(fastify: FastifyInstance){
 
         return{producersCount, activistsCount, researchersCount}
     })
+
+    fastify.put('/user/level', async (request, reply) => {
+        const propsUpdateLevel = z.object({
+            id: z.string(),
+            level: z.number()
+        })
+
+        const {id, level} = propsUpdateLevel.parse(request.body);
+
+        await prisma.user.update({
+            where:{
+                id
+            },
+            data:{
+                level
+            }
+        })
+
+        return reply.status(200).send();
+    })
 }

@@ -21,6 +21,7 @@ model User {
   propertyGeolocation String?
   imgProfileUrl       String?
   address             String?
+  level               Int      @default(0)
 
   Delations   Delation[]
   Inspections Inspection[]
@@ -52,6 +53,7 @@ model Inspection {
   resultIdices      String?
   proofPhoto        String?
   biodversityIndice String?
+  methodType        String?
 
   user User @relation(fields: [userWallet], references: [wallet])
 }
