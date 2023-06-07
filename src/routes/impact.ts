@@ -14,14 +14,15 @@ export async function impactRoutes(fastify: FastifyInstance){
             carbon: z.number(),
             agua: z.number(),
             bio: z.number(),
-            solo: z.number()
+            solo: z.number(),
+            id: z.string()
         });
 
-        const {carbon, agua, bio, solo} = updateProps.parse(request.body);
+        const {carbon, agua, bio, solo, id} = updateProps.parse(request.body);
 
         await prisma.impact.update({
             where:{
-                id: '1'
+                id
             },
             data:{
                 carbon,
