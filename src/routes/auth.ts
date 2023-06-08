@@ -14,9 +14,10 @@ export async function authRoutes(fastify: FastifyInstance){
             password: z.string().optional(),
             imgProfileUrl: z.string().optional(),
             address: z.string().optional(),
+            level: z.number()
         });
     
-        const {name, wallet, userType, geoLocation, propertyGeolocation, password, imgProfileUrl, address} = createUserProps.parse(request.body);
+        const {name, wallet, userType, geoLocation, propertyGeolocation, password, imgProfileUrl, address, level} = createUserProps.parse(request.body);
 
         const userExists = await prisma.user.findUnique({
             where:{
@@ -39,7 +40,8 @@ export async function authRoutes(fastify: FastifyInstance){
                 propertyGeolocation,
                 password: String(passwordHash),
                 imgProfileUrl,
-                address
+                address,
+                level
             }
         })
     
