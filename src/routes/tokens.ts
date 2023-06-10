@@ -24,7 +24,7 @@ export async function tokensRoutes(fastify: FastifyInstance){
 
         await prisma.tokensBurned.create({
             data:{
-                wallet,
+                wallet: wallet.toUpperCase(),
                 tokens,
                 transactionHash,
                 carbon,
@@ -46,7 +46,7 @@ export async function tokensRoutes(fastify: FastifyInstance){
 
         const tokensBurned = await prisma.tokensBurned.findMany({
             where:{
-                wallet
+                wallet: wallet.toUpperCase()
             },
         })
 

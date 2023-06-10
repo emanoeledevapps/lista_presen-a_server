@@ -112,10 +112,10 @@ model TokensBurned {
   id              String   @id @default(cuid())
   wallet          String
   transactionHash String
-  tokens          Int
-  water           Int
-  bio             Int
-  soil            Int
-  carbon          Int
+  tokens          Float
+  water           Float
+  bio             Float
+  soil            Float
+  carbon          Float
   createdAt       DateTime @default(now())
 }
