@@ -13,18 +13,20 @@ export async function tokensRoutes(fastify: FastifyInstance){
         const updateProps = z.object({
             wallet: z.string(),
             tokens: z.number(),
+            transactionHash: z.string(),
             carbon: z.number(),
             water: z.number(),
             bio: z.number(),
             soil: z.number()
         });
 
-        const {wallet, tokens, carbon, water, bio, soil} = updateProps.parse(request.body);
+        const {wallet, tokens, transactionHash, carbon, water, bio, soil} = updateProps.parse(request.body);
 
         await prisma.tokensBurned.create({
             data:{
                 wallet,
                 tokens,
+                transactionHash,
                 carbon,
                 water,
                 bio, 
@@ -35,7 +37,7 @@ export async function tokensRoutes(fastify: FastifyInstance){
         return reply.status(201).send();
     })
 
-    fastify.get('/tokens-burned/:wallet', async (request, reply) => {
+    fastify.get('/tokens-burned/by-wallet/:wallet', async (request, reply) => {
         const paramsProps = z.object({
             wallet: z.string()
         });
@@ -45,6 +47,22 @@ export async function tokensRoutes(fastify: FastifyInstance){
         const tokensBurned = await prisma.tokensBurned.findMany({
             where:{
                 wallet
+            },
+        })
+
+        return {tokensBurned};
+    })
+
+    fastify.get('/tokens-burned/by-hash/:transactionHash', async (request, reply) => {
+        const paramsProps = z.object({
+            transactionHash: z.string()
+        });
+
+        const {transactionHash} = paramsProps.parse(request.params);
+
+        const tokensBurned = await prisma.tokensBurned.findMany({
+            where:{
+                transactionHash
             },
         })
 
