@@ -4,7 +4,7 @@ import {z} from 'zod';
 import { authenticated } from '../plugins/authenticated';
 
 export async function feedbackRoutes(fastify: FastifyInstance){
-    fastify.post('/feedback',{onRequest: [authenticated]}, async (request, reply) => {
+    fastify.post('/feedback', async (request, reply) => {
         const createFeedbackProps = z.object({
             title: z.string(),
             description: z.string(),
