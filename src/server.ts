@@ -9,6 +9,7 @@ import { authRoutes } from './routes/auth';
 import { blogRoutes } from './routes/blog';
 import { impactRoutes } from './routes/impact';
 import { tokensRoutes } from './routes/tokens';
+import { feedbackRoutes } from './routes/feedback';
 
 const app = fastify();
 app.register(cors, {
@@ -21,6 +22,7 @@ app.register(authRoutes);
 app.register(blogRoutes);
 app.register(impactRoutes);
 app.register(tokensRoutes);
+app.register(feedbackRoutes);
 
 app.register(jwt, {
     secret: process.env.JWT_SECRET_KEY || '123456'

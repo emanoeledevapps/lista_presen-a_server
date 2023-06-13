@@ -119,3 +119,12 @@ model TokensBurned {
   carbon          Float
   createdAt       DateTime @default(now())
 }
+
+model Feedback {
+  id          String   @id @default(cuid())
+  wallet      String
+  title       String
+  description String
+  photoHash   String
+  createdAt   DateTime @default(now())
+}
