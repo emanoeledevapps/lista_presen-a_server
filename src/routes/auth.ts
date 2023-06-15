@@ -84,4 +84,26 @@ export async function authRoutes(fastify: FastifyInstance){
 
         return token;
     })
+
+    fastify.put('/auth/update-password', async (request, reply) => {
+        const updateProps = z.object({
+            wallet: z.string(),
+            password: z.string()
+        })
+
+        const {wallet, password} = updateProps.parse(request.body);
+
+        const passwordHash = await hash(password, 8)
+
+        await prisma.user.update({
+            where:{
+                wallet: wallet.toUpperCase()
+            },
+            data:{
+                password: passwordHash
+            }
+        })
+
+        return reply.status(200).send();
+    })
 }

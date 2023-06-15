@@ -37,4 +37,71 @@ export async function feedbackRoutes(fastify: FastifyInstance){
 
         return {feedbacks}
     })
+
+    fastify.put('/feedback/status', async (request, reply) => {
+        const updateFeedbackProps = z.object({
+            id: z.string(),
+            status: z.number(),
+        });
+    
+        const {id, status} = updateFeedbackProps.parse(request.body);
+    
+        await prisma.feedback.update({
+            where:{
+                id
+            },
+            data:{
+                status
+            }
+        })
+    
+        return reply.status(200).send();
+    })
+
+    fastify.post('/request-faucet', async (request, reply) => {
+        const requestProps = z.object({
+            wallet: z.string(),
+        });
+    
+        const {wallet} = requestProps.parse(request.body);
+    
+        await prisma.requestFaucet.create({
+            data:{
+                wallet,
+            }
+        })
+    
+        return reply.status(201).send();
+    })
+
+
+    fastify.get('/request-faucet', async (request, reply) => {
+        const requests = await prisma.requestFaucet.findMany({
+            orderBy:{
+                createdAt: 'asc'
+            }
+        })
+
+        return {requests}
+    })
+
+    fastify.put('/request-faucet/status', async (request, reply) => {
+        const requestProps = z.object({
+            id: z.string(),
+            status: z.number(),
+        });
+    
+        const {id, status} = requestProps.parse(request.body);
+    
+        await prisma.requestFaucet.update({
+            where:{
+                id
+            },
+            data:{
+                status
+            }
+        })
+    
+        return reply.status(200).send();
+    })
 }

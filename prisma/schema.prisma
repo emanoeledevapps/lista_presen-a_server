@@ -127,4 +127,12 @@ model Feedback {
   description String
   photoHash   String
   createdAt   DateTime @default(now())
+  status      Int      @default(0)
+}
+
+model RequestFaucet {
+  id        String   @id @default(cuid())
+  wallet    String
+  createdAt DateTime @default(now())
+  status    Int      @default(0)
 }
