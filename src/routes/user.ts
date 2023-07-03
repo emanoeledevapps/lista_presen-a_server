@@ -78,15 +78,15 @@ export async function userRoutes(fastify: FastifyInstance){
 
     fastify.put('/user/updatePhoto', async (request, reply) => {
         const propsUpdatePhoto = z.object({
-            id: z.string(),
+            wallet: z.string(),
             hashPhoto: z.string()
         })
 
-        const {id, hashPhoto} = propsUpdatePhoto.parse(request.body);
+        const {wallet, hashPhoto} = propsUpdatePhoto.parse(request.body);
 
         await prisma.user.update({
             where:{
-                id
+                wallet: wallet.toUpperCase()
             },
             data:{
                 imgProfileUrl: hashPhoto
