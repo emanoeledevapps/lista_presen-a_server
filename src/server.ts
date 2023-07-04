@@ -10,12 +10,14 @@ import { blogRoutes } from './routes/blog';
 import { impactRoutes } from './routes/impact';
 import { tokensRoutes } from './routes/tokens';
 import { feedbackRoutes } from './routes/feedback';
+import { profileRoutes } from './routes/profile';
 
 const app = fastify();
 app.register(cors, {
     origin: true
 });
 app.register(userRoutes);
+app.register(profileRoutes);
 app.register(delationRoutes);
 app.register(inspectionRoutes);
 app.register(authRoutes);
