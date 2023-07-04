@@ -76,7 +76,7 @@ export async function userRoutes(fastify: FastifyInstance){
         return reply.status(200).send();
     })
 
-    fastify.put('/update-profile-photo', async (request, reply) => {
+    fastify.put('/user/update-profile-photo', async (request, reply) => {
         const propsUpdatePhoto = z.object({
             wallet: z.string(),
             hashPhoto: z.string()
@@ -85,7 +85,7 @@ export async function userRoutes(fastify: FastifyInstance){
 
         const user = await prisma.user.findUnique({
             where: {
-                wallet
+                wallet: wallet.toUpperCase()
             }
         })
 
