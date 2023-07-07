@@ -54,6 +54,7 @@ model Inspection {
   proofPhoto        String?
   biodversityIndice String?
   methodType        String?
+  zones             String?
 
   user User @relation(fields: [userWallet], references: [wallet])
 }
