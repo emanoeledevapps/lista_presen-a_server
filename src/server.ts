@@ -16,6 +16,7 @@ const app = fastify();
 app.register(cors, {
     origin: true
 });
+
 app.register(userRoutes);
 app.register(profileRoutes);
 app.register(delationRoutes);
