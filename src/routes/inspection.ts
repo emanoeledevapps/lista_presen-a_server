@@ -185,4 +185,5 @@ export async function inspectionRoutes(fastify: FastifyInstance){
         })
         return {inspection}
     });
+    
 }
