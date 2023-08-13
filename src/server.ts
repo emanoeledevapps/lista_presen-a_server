@@ -1,35 +1,16 @@
 import fastify from 'fastify';
 import cors from '@fastify/cors';
-import jwt from '@fastify/jwt';
 
-import { delationRoutes } from './routes/delation';
-import { userRoutes } from './routes/user';
-import { inspectionRoutes } from './routes/inspection';
-import { authRoutes } from './routes/auth';
-import { blogRoutes } from './routes/blog';
-import { impactRoutes } from './routes/impact';
-import { tokensRoutes } from './routes/tokens';
-import { feedbackRoutes } from './routes/feedback';
-import { profileRoutes } from './routes/profile';
+import { confirmationRoutes } from './routes/confirmation';
+
 
 const app = fastify();
+
+app.register(confirmationRoutes);
+
 app.register(cors, {
     origin: true
 });
-
-app.register(userRoutes);
-app.register(profileRoutes);
-app.register(delationRoutes);
-app.register(inspectionRoutes);
-app.register(authRoutes);
-app.register(blogRoutes);
-app.register(impactRoutes);
-app.register(tokensRoutes);
-app.register(feedbackRoutes);
-
-app.register(jwt, {
-    secret: process.env.JWT_SECRET_KEY || '123456'
-})
 
 app.listen({
     host: '0.0.0.0',
